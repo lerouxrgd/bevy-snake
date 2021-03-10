@@ -4,8 +4,8 @@ use bevy::prelude::*;
 use bevy::render::pass::ClearColor;
 use rand::prelude::random;
 
-const ARENA_WIDTH: u32 = 100;
-const ARENA_HEIGHT: u32 = 100;
+const ARENA_WIDTH: u32 = 10;
+const ARENA_HEIGHT: u32 = 10;
 
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 struct Position {
@@ -88,7 +88,7 @@ fn spawn_snake(commands: &mut Commands, materials: Res<Materials>) {
         })
         .with(SnakeHead)
         .with(Position { x: 3, y: 3 })
-        .with(Size::square(4.8));
+        .with(Size::square(0.8));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -109,12 +109,6 @@ fn food_spawner(
     time: Res<Time>,
     mut timer: Local<FoodSpawnTimer>,
 ) {
-    fn closest_multiple(x: f32, n: f32) -> i32 {
-        let x = x + n / 2.0;
-        let x = x - (x % n);
-        x as i32
-    }
-
     if timer.0.tick(time.delta_seconds()).finished() {
         commands
             .spawn(SpriteBundle {
@@ -123,10 +117,10 @@ fn food_spawner(
             })
             .with(Food)
             .with(Position {
-                x: 3 + closest_multiple(random::<f32>() * (ARENA_WIDTH - 8) as f32, 5.0),
-                y: 3 + closest_multiple(random::<f32>() * (ARENA_HEIGHT - 8) as f32, 5.0),
+                x: (random::<f32>() * ARENA_WIDTH as f32) as i32,
+                y: (random::<f32>() * ARENA_HEIGHT as f32) as i32,
             })
-            .with(Size::square(4.8));
+            .with(Size::square(0.8));
     }
 }
 
