@@ -1,9 +1,9 @@
 [package]
-name = "bevy_snake"
+name = "snake_bevy"
 version = "0.1.0"
 authors = ["Romain Leroux <romain@leroux.dev>"]
 edition = "2018"
 
 [dependencies]
-bevy = "0.4"
-rand = "0.7"
+bevy = "0.5"
+rand = "0.8"
